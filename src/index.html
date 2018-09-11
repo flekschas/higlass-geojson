@@ -29,7 +29,12 @@
 
   <title>HiGlass GeoJSON Track</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
-  <link rel="stylesheet" href="hglib.css">
+
+  <% if (htmlWebpackPlugin.options.isProduction) { %>
+  <link rel="stylesheet" href="https://unpkg.com/higlass/dist/styles/hglib.css"></link>
+  <% } else { %>
+  <link rel="stylesheet" href="hglib.css"></link>
+  <% } %>
 
   <style type="text/css">
     html,
@@ -107,9 +112,13 @@
   </div>
   <div id="demo"></div>
 </body>
+<% if (htmlWebpackPlugin.options.isProduction) { %>
+<script src="https://unpkg.com/higlass/dist/scripts/hglib.js"></script>
+<% } else { %>
 <script src="hglib.js"></script>
+<% } %>
 <script>
-const testViewConfig = {
+const viewConfig = {
   editable: false,
   zoomFixed: false,
   trackSourceServers: ['http://higlass.io/api/v1'],
@@ -166,7 +175,7 @@ const testViewConfig = {
 
 window.hglib.createHgComponent(
   document.getElementById('demo'),
-  testViewConfig,
+  viewConfig,
   { bounded: true, isDarkTheme: true },
 );
 </script>
