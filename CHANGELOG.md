@@ -1,4 +1,4 @@
-v0.1.3
+v0.2.0
 
 - Expose internal db id of annotations, which can be used for preloaded GeoJSON annotation dbs
 
