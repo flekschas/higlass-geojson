@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -6,7 +6,7 @@
   <meta name="description" content="A plugin track to display GeoJSON annotation in HiGlass">
   <meta name="keywords" content="HiGlass, Plugin Tracks, GeoJSON, OpenStreetMaps, Mapbox">
 
-  <!-- Schema.org markup for Google+ -->
+  <!-- Schema.org markup for Google -->
   <meta itemprop="name" content="HiGlass GeoJSON Track">
   <meta itemprop="description" content="A plugin track to display GeoJSON annotation in HiGlass">
   <meta itemprop="image" content="https://raw.githubusercontent.com/flekschas/higlass-geojson/master/teaser.jpg">
@@ -17,7 +17,6 @@
   <meta name="twitter:title" content="HiGlass GeoJSON Track">
   <meta name="twitter:description" content="A plugin track to display GeoJSON annotation in HiGlass">
   <meta name="twitter:creator" content="@flekschas">
-  <!-- Twitter summary card with large image must be at least 280x150px -->
   <meta name="twitter:image:src" content="https://raw.githubusercontent.com/flekschas/higlass-geojson/master/teaser.jpg">
 
   <!-- Open Graph -->
@@ -28,10 +27,9 @@
   <meta property="og:image" content="https://raw.githubusercontent.com/flekschas/higlass-geojson/master/teaser.jpg" />
 
   <title>HiGlass GeoJSON Track</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
 
   <% if (htmlWebpackPlugin.options.isProduction) { %>
-  <link rel="stylesheet" href="https://unpkg.com/higlass/dist/styles/hglib.css">
+  <link rel="stylesheet" href="https://unpkg.com/higlass@1.2.8/dist/hglib.css">
   <% } else { %>
   <link rel="stylesheet" href="hglib.css">
   <% } %>
@@ -91,10 +89,10 @@
     }
   </style>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.2/react.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/15.6.2/react-dom.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.6.2/pixi.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.32.0/react-bootstrap.min.js"></script>
+  <script src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/pixi.js@4.8.2/dist/pixi.min.js"></script>
+  <script src="https://unpkg.com/react-bootstrap@0.32.1/dist/react-bootstrap.min.js"></script>
 </head>
 <body>
   <div id="info">
@@ -113,7 +111,7 @@
   <div id="demo"></div>
 </body>
 <% if (htmlWebpackPlugin.options.isProduction) { %>
-<script src="https://unpkg.com/higlass/dist/scripts/hglib.js"></script>
+<script src="https://unpkg.com/higlass@1.2.8/dist/hglib.min.js"></script>
 <% } else { %>
 <script src="hglib.js"></script>
 <% } %>
