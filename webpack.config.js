@@ -1,115 +1,149 @@
-const path = require('path');
+const path = require("path");
 
-const autoprefixer = require('autoprefixer');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
+const autoprefixer = require("autoprefixer");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const UnminifiedWebpackPlugin = require("unminified-webpack-plugin");
+const flexbugs = require("postcss-flexbugs-fixes");
+
+const packageJson = require("./package.json");
+
+const hgDependencies = (() => {
+  if (packageJson.hgDependencies) {
+    return packageJson.hgDependencies;
+  }
+
+  if (packageJson.devDependencies) {
+    return Object.keys(packageJson.devDependencies)
+      .filter(dependency => dependency.indexOf("higlass") === 0)
+      .reduce((dependencies, dependency) => {
+        dependencies[dependency] = packageJson.devDependencies[dependency];
+        return dependencies;
+      }, {});
+  }
+
+  if (packageJson.dependencies) {
+    return Object.keys(packageJson.dependencies)
+      .filter(dependency => dependency.indexOf("higlass") === 0)
+      .reduce((dependencies, dependency) => {
+        dependencies[dependency] = packageJson.dependencies[dependency];
+        return dependencies;
+      }, {});
+  }
+
+  return {};
+})();
 
 module.exports = (envs, argv) => ({
   output: {
-    filename: 'higlass-geojson.min.js',
-    library: 'higlass-geojson',
-    libraryTarget: 'umd',
-    path: path.resolve(__dirname, 'dist'),
+    filename: "higlass-geojson.min.js",
+    library: "higlass-geojson",
+    libraryTarget: "umd",
+    path: path.resolve(__dirname, "dist")
   },
   devServer: {
-    contentBase: [
-      path.join(__dirname, 'node_modules/higlass/build'),
-    ],
-    watchContentBase: true,
+    contentBase: [path.join(__dirname, "node_modules/higlass/build")],
+    watchContentBase: true
   },
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
         cache: true,
         parallel: true,
-        sourceMap: false,
+        sourceMap: false
       }),
-      new OptimizeCssAssetsPlugin({}),
+      new OptimizeCssAssetsPlugin({})
     ],
     splitChunks: {
       cacheGroups: {
         styles: {
-          name: 'index',
+          name: "index",
           test: /\.css$/,
-          chunks: 'all',
-          enforce: true,
-        },
-      },
-    },
+          chunks: "all",
+          enforce: true
+        }
+      }
+    }
   },
   module: {
     rules: [
       // Run ESLint first
       {
-        enforce: 'pre',
+        enforce: "pre",
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'eslint-loader',
-        },
+          loader: "eslint-loader"
+        }
       },
       // Transpile the ESD6 files to ES5
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-        },
+          loader: "babel-loader"
+        }
       },
       // Convert SASS to CSS, postprocess it, and bundle it
       {
         test: /\.s?css$/,
         use: [
-          'style-loader',
+          "style-loader",
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               importLoaders: 1,
               minimize: { safe: true },
-              url: false,
-            },
+              url: false
+            }
           },
           {
-            loader: 'postcss-loader',
+            loader: "postcss-loader",
             options: {
               plugins: () => [
-                require('postcss-flexbugs-fixes'),
+                flexbugs,
                 autoprefixer({
                   browsers: [
-                    '>1%',
-                    'last 4 versions',
-                    'Firefox ESR',
-                    'not ie < 9',
+                    ">1%",
+                    "last 4 versions",
+                    "Firefox ESR",
+                    "not ie < 9"
                   ],
-                  flexbox: 'no-2009',
-                }),
-              ],
-            },
+                  flexbox: "no-2009"
+                })
+              ]
+            }
           },
-          'sass-loader',  // compiles Sass to CSS
-        ],
+          "sass-loader" // compiles Sass to CSS
+        ]
       },
       {
         test: /.*\.(gif|png|jpe?g|svg)$/i,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: 'images/[name].[ext]',
-            },
-          },
-        ],
-      },
-    ],
+              name: "images/[name].[ext]"
+            }
+          }
+        ]
+      }
+    ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: './index.html',
-      isProduction: argv.mode === 'production',
+    new webpack.DefinePlugin({
+      VERSION: JSON.stringify(packageJson.version)
     }),
-    new UnminifiedWebpackPlugin(),
-  ],
+    new webpack.DefinePlugin({
+      DEPENDENCIES: JSON.stringify(hgDependencies)
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      filename: "./index.html",
+      isProduction: argv.mode === "production"
+    }),
+    new UnminifiedWebpackPlugin()
+  ]
 });
