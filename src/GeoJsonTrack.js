@@ -8,16 +8,8 @@ const GeoJsonTrack = (HGC, ...args) => {
   }
 
   class GeoJsonTrackClass extends HGC.tracks.Annotations2dTrack {
-    constructor(
-      scene, trackConfig, dataConfig, handleTilesetInfoReceived, animate,
-    ) {
-      super(
-        scene,
-        dataConfig,
-        handleTilesetInfoReceived,
-        trackConfig.options,
-        animate,
-      );
+    constructor(context, options) {
+      super(context, options);
 
       switch (this.options.projection) {
         case 'mercator':
@@ -29,7 +21,7 @@ const GeoJsonTrack = (HGC, ...args) => {
       this.updateProjection();
     }
 
-    /* --------------------------- Getter / Setter ---------------------------- */
+    /* -------------------------- Getter / Setter --------------------------- */
 
     prepAnnotation(graphics, uid, startX, startY, width, height, td) {
       return {
@@ -205,5 +197,8 @@ GeoJsonTrack.config = {
     polygonMinBoundingSize: 4,
   },
 };
+
+GeoJsonTrack.version = VERSION;
+GeoJsonTrack.dependencies = DEPENDENCIES;
 
 export default GeoJsonTrack;
