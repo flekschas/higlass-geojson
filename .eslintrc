@@ -28,7 +28,6 @@
     "no-mixed-operators": ["error", { "allowSamePrecedence": true }],
     "no-multi-spaces": ["error", { "ignoreEOLComments": true }],
     "no-param-reassign": ["error", { "props": false }],
-    "no-underscore-dangle": 0,
-    "function-paren-newline": ["error", "consistent"]
+    "no-underscore-dangle": 0
   }
 }
