@@ -1,6 +1,6 @@
 import { geoMercator } from 'd3-geo';
 
-const GeoJsonTrack = (HGC, ...args) => {
+const GeoJsonTrack = function GeoJsonTrack(HGC, ...args) {
   if (!new.target) {
     throw new Error(
       'Uncaught TypeError: Class constructor cannot be invoked without "new"'
