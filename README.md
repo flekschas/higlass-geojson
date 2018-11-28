@@ -4,6 +4,7 @@
 
 [![HiGlass](https://img.shields.io/badge/higlass-👍-red.svg?colorB=0f5d92)](http://higlass.io)
 [![Build Status](https://img.shields.io/travis/flekschas/higlass-geojson/master.svg?colorB=0f5d92)](https://travis-ci.org/flekschas/higlass-geojson)
+[![code style prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 ![HiGlass showing ski areas with Mapbox](/teaser.jpg?raw=true "Ski areas around Park City shown with Mapbox")
 
@@ -12,6 +13,12 @@
 - HiGlass viewer: https://github.com/hms-dbmi/higlass
 - HiGlass server: https://github.com/hms-dbmi/higlass-server
 - HiGlass docker: https://github.com/hms-dbmi/higlass-docker
+
+HiGlass GeoJSON comes in 2 flavors, with and without including d3-geo in the
+bundle. The only difference is the file size:
+
+- With `d3-geo`: 8KB minified and gzipped
+- Without `d3-geo`: 2KB minified and gzipped
 
 ## Installation
 
