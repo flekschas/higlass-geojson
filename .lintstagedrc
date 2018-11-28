@@ -4,4 +4,8 @@
     "eslint --fix",
     "git add"
   ],
+  "*.scss": [
+    "pretty-quick --staged",
+    "git add"
+  ]
 }
