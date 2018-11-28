@@ -4,8 +4,9 @@ const autoprefixer = require("autoprefixer");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const UnminifiedWebpackPlugin = require("unminified-webpack-plugin");
+const StyleLintPlugin = require("stylelint-webpack-plugin");
 const flexbugs = require("postcss-flexbugs-fixes");
 
 const packageJson = require("./package.json");
@@ -49,12 +50,12 @@ module.exports = (envs, argv) => ({
   },
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
+      new TerserPlugin({
         cache: true,
         parallel: true,
         sourceMap: false
       }),
-      new OptimizeCssAssetsPlugin({})
+      new OptimizeCssAssetsPlugin()
     ],
     splitChunks: {
       cacheGroups: {
@@ -144,6 +145,7 @@ module.exports = (envs, argv) => ({
       filename: "./index.html",
       isProduction: argv.mode === "production"
     }),
-    new UnminifiedWebpackPlugin()
+    new UnminifiedWebpackPlugin(),
+    new StyleLintPlugin()
   ]
 });
