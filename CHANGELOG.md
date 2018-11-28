@@ -1,3 +1,8 @@
+v0.3.0
+
+- Compatible with HiGlass `v1.3`
+- Update build process to Babel `v7`, added husky, lint-staged, and stylelint for better linting
+
 v0.2.0
 
 - Expose internal db id of annotations, which can be used for preloaded GeoJSON annotation dbs
