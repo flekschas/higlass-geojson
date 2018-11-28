@@ -5,5 +5,5 @@ import GeoJsonTrack from './GeoJsonTrack';
 register({
   name: 'GeoJsonTrack',
   track: GeoJsonTrack,
-  config: GeoJsonTrack.config,
+  config: GeoJsonTrack.config
 });
