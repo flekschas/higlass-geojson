@@ -7,3 +7,5 @@ register({
   track: GeoJsonTrack,
   config: GeoJsonTrack.config
 });
+
+export default GeoJsonTrack;
