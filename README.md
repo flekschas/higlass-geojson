@@ -10,9 +10,9 @@
 
 **Note**: This is the source code for the GeoJSON track only! You might want to check out the following repositories as well:
 
-- HiGlass viewer: https://github.com/hms-dbmi/higlass
-- HiGlass server: https://github.com/hms-dbmi/higlass-server
-- HiGlass docker: https://github.com/hms-dbmi/higlass-docker
+- HiGlass viewer: https://github.com/higlass/higlass
+- HiGlass server: https://github.com/higlass/higlass-server
+- HiGlass docker: https://github.com/higlass/higlass-docker
 
 HiGlass GeoJSON comes in 2 flavors, with and without including d3-geo in the
 bundle. The only difference is the file size:
